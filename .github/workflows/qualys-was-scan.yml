@@ -3,7 +3,7 @@ name: Qualys WAS Scan
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   qualys_was_scan:
