@@ -18,7 +18,7 @@ jobs:
 
       # Run the Qualys WAS scan
       - name: Qualys WAS Scan Action
-        uses: Qualys/github_action_qwas@master
+        uses: Qualys/github_action_qwas@main
         with:
           API_SERVER: ${{ vars.API_SERVER }}
           QUALYS_USERNAME: ${{ vars.QUALYS_USERNAME }}
