@@ -1,41 +1,27 @@
 name: Qualys WAS Scan
-
 on:
   push:
     branches:
       - master
-
 jobs:
-  qualys_was_scan:
-    runs-on: ubuntu-latest
-    name: Qualys WAS Scan
-    steps:
-      # Checkout the repository code
-      - name: Checkout
-        uses: actions/checkout@v4  # Updated to v4
-        with:
-          fetch-depth: 0
+    Qualys_was_scan:
+        runs-on: ubuntu-latest
+        name: Qualys WAS Scan
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v4
+            with:
+                fetch-depth: 0
 
-      # Run the Qualys WAS scan
-      - name: Qualys WAS scan action step
-        uses: Qualys/github_action_qwas@main
-        id: was
-        with:
-          API_SERVER: ${{ vars.API_SERVER }}
-          QUALYS_USERNAME: ${{ vars.QUALYS_USERNAME }}
-          QUALYS_PASSWORD: ${{ secrets.QUALYS_PASSWORD }}
-          WEBAPP_ID: ${{ vars.WEBAPP_ID }}
-          SCAN_NAME: ${{ vars.SCAN_NAME }}
-          SCAN_TYPE: ${{ vars.SCAN_TYPE }}
-          WAIT_FOR_RESULT: 'true'  # Ensure scan completes
-          TIMEOUT: '3600'
-
-      # Optional: Upload scan results as an artifact (if applicable)
-      - name: Upload Scan Results
-        if: always()  # Runs even if the scan fails
-        uses: actions/upload-artifact@v4  # Updated to v4
-        with:
-          name: qualys-scan-results
-          path: |
-            *.xml  # Adjust this to match the output file(s) from Qualys action
-            *.json
+          - name: Qualys WAS scan action step
+            uses: Qualys/github_action_qwas@main
+            id: was
+            with:
+              API_SERVER: ${{ vars.API_SERVER }}
+              QUALYS_USERNAME: ${{ vars.QUALYS_USERNAME }}
+              QUALYS_PASSWORD: ${{ secrets.QUALYS_PASSWORD }}
+              WEBAPP_ID: ${{ vars.WEBAPP_ID }}
+              SCAN_NAME: ${{ vars.SCAN_NAME }}
+              SCAN_TYPE: ${{ vars.SCAN_TYPE }}
+              WAIT_FOR_RESULT: 'true'  # Ensure scan completes
+              TIMEOUT: '3600'
