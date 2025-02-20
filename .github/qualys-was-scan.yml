@@ -1,0 +1,35 @@
+name: Qualys WAS Scan
+
+on:
+  push:
+    branches:
+      - master  # Trigger on push to the main branch (adjust as needed)
+
+jobs:
+  qualys_was_scan:
+    runs-on: ubuntu-latest
+    name: Qualys WAS Scan
+    steps:
+      # Checkout the repository code
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # Run the Qualys WAS scan
+      - name: Qualys WAS Scan Action
+        uses: Qualys/github-action-qwas@main
+        with:
+          API_SERVER: ${{ vars.API_SERVER }}
+          QUALYS_USERNAME: ${{ secrets.QUALYS_USERNAME }}
+          QUALYS_PASSWORD: ${{ secrets.QUALYS_PASSWORD }}
+          WEBAPP_ID: ${{ vars.WEBAPP_ID }}
+          SCAN_NAME: ${{ vars.SCAN_NAME }}
+          SCAN_TYPE: ${{ vars.SCAN_TYPE }}
+          # Optional parameters (uncomment and adjust if needed)
+          # AUTH_RECORD: 'useDefault'  # Options: useDefault, other, none
+          # AUTH_RECORD_ID: 'your-auth-id'  # If AUTH_RECORD is 'other'
+          # SEVERITY_CHECK: 'true'  # Fail build on severity
+          # SEVERITY_LEVEL: '3'  # Fail if severity >= 3
+          # WAIT_FOR_RESULT: 'true'  # Wait for scan results
+          # TIMEOUT: '3600'  # Max wait time in seconds
